@@ -1,0 +1,183 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>SassScript &mdash; Tutorial to Compass and Sass</title>
+    
+    <link rel="stylesheet" href="../_static/agogo.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.3',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="Tutorial to Compass and Sass" href="../index.html" />
+    <link rel="next" title="@-rules and directives" href="rules_directives.html" />
+    <link rel="prev" title="Nesting" href="nesting.html" /> 
+  </head>
+  <body>
+    <div class="header-wrapper">
+      <div class="header">
+        <div class="headertitle"><a
+          href="../index.html">Tutorial to Compass and Sass</a></div>
+        <div class="rel">
+          <a href="nesting.html" title="Nesting"
+             accesskey="P">previous</a> |
+          <a href="rules_directives.html" title="@-rules and directives"
+             accesskey="N">next</a>
+        </div>
+       </div>
+    </div>
+
+    <div class="content-wrapper">
+      <div class="content">
+        <div class="document">
+            
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="sassscript">
+<h1>SassScript<a class="headerlink" href="#sassscript" title="Permalink to this headline">¶</a></h1>
+<p>Extra features that you don&#8217;t find in CSS brings the SassScript. It allows to use arithmetic operations, interpolation and functions. If you want to just try some of it without writing files, than for you is there Interactive Shell.</p>
+<div class="highlight-scss"><div class="highlight"><pre><span class="nt">sass</span> <span class="nt">-i</span>
+<span class="o">&gt;&gt;</span> <span class="nt">1px</span> <span class="o">+</span> <span class="nt">1px</span> <span class="o">+</span> <span class="nt">1px</span>
+<span class="nt">3px</span>
+<span class="o">&gt;&gt;</span> <span class="nn">#123</span> <span class="nt">-</span> <span class="nn">#010101</span>
+<span class="nn">#122334</span>
+<span class="o">&gt;&gt;</span> <span class="nn">#777</span> <span class="o">+</span> <span class="nn">#888</span>
+<span class="nt">white</span>
+</pre></div>
+</div>
+<div class="section" id="data-types">
+<h2>Data types<a class="headerlink" href="#data-types" title="Permalink to this headline">¶</a></h2>
+<p>The SassScript supports 6 data types. There is no need to declare them. It will be automatically done. They are</p>
+<ul class="simple">
+<li>numbers, e.g. 1.2, 13, 10px</li>
+<li>strings with and without quotes, e.g. &#8220;cube&#8221;, &#8216;triangle&#8217;, line</li>
+<li>colors, e.g. red, #123456, rgba(234,123,0, 0.8)</li>
+<li>booleans, e.g. true, false</li>
+<li>null</li>
+<li>list of values separated by spaces or commas, e.g. thin solid black</li>
+</ul>
+<p>You don&#8217;t need thing about these types a lot. Only in cases that you store for example string into variable, but you want to use it to set a size of font. In this case it doesn&#8217;t make sense.</p>
+</div>
+<div class="section" id="functions">
+<h2>Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h2>
+<p>The classic CSS does not have many functions. One example could be the <cite>calc()</cite> function for the arithmetic operations, but it&#8217;s not supported in all browsers.</p>
+<p>SassScripts brings more handy functions. For the full reference and examples to them I recommend the official documentation <a class="reference external" href="http://sass-lang.com/docs/yardoc/Sass/Script/Functions.html">SassScript Functions Reference</a>. You can find there all functions with short example. For that reason I&#8217;m not going to copy it. I give you in moment one example where can be functions useful.</p>
+<p>You can sort them base on the target area of use.</p>
+<ul>
+<li><dl class="first docutils">
+<dt>Color functions</dt>
+<dd><ul class="first last simple">
+<li>RGB</li>
+<li>HSL</li>
+<li>Opacity</li>
+<li>Other</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p class="first">String functions</p>
+</li>
+<li><p class="first">Number functions</p>
+</li>
+<li><p class="first">List functions</p>
+</li>
+<li><p class="first">Introspection functions</p>
+</li>
+</ul>
+<p><strong>Generating a color palette</strong></p>
+<p>Nice example of using the functions is generating color palette. You need only to set the base color. In case that you would change it for any reason, other colors will change depending on it. Experimenting with the color palette is then rather simple.</p>
+<div class="highlight-scss"><div class="highlight"><pre><span class="nv">$base</span><span class="o">:</span> <span class="mh">#633</span><span class="p">;</span>
+<span class="nv">$complement1</span><span class="o">:</span> <span class="nf">adjust-hue</span><span class="p">(</span><span class="nv">$base</span><span class="o">,</span> <span class="mi">180</span><span class="p">);</span>
+<span class="nv">$complement2</span><span class="o">:</span> <span class="nf">darken</span><span class="p">(</span><span class="nf">adjust-hue</span><span class="p">(</span><span class="nv">$base</span><span class="o">,</span> <span class="mi">180</span><span class="p">)</span><span class="o">,</span> <span class="mi">5</span><span class="kt">%</span><span class="p">);</span>
+<span class="nv">$lighten1</span><span class="o">:</span> <span class="nf">lighten</span><span class="p">(</span><span class="nv">$base</span><span class="o">,</span> <span class="mi">15</span><span class="kt">%</span><span class="p">);</span>
+<span class="nv">$lighten2</span><span class="o">:</span> <span class="nf">lighten</span><span class="p">(</span><span class="nv">$base</span><span class="o">,</span> <span class="mi">30</span><span class="kt">%</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+        </div>
+        <div class="sidebar">
+          <h3>Table Of Contents</h3>
+          <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="first_steps_to_the_sass.html">First steps to the Sass</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sass_syntax.html">Sass Syntax</a></li>
+<li class="toctree-l1"><a class="reference internal" href="variables.html">Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nesting.html">Nesting</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="sassscript.html">SassScript</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="sassscript.html#data-types">Data types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sassscript.html#functions">Functions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="rules_directives.html">&#64;-rules and directives</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mixins.html">Mixins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="control_directives.html">Control Directives</a></li>
+<li class="toctree-l1"><a class="reference internal" href="compass_basics.html">Compass</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_projects.html">Working with projects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="compass_core.html">Compass core</a></li>
+</ul>
+
+          <h3 style="margin-top: 1.5em;">Search</h3>
+          <form class="search" action="../search.html" method="get">
+            <input type="text" name="q" />
+            <input type="submit" value="Go" />
+            <input type="hidden" name="check_keywords" value="yes" />
+            <input type="hidden" name="area" value="default" />
+          </form>
+          <p class="searchtip" style="font-size: 90%">
+            Enter search terms or a module, class or function name.
+          </p>
+        </div>
+        <div class="clearer"></div>
+      </div>
+    </div>
+
+    <div class="footer-wrapper">
+      <div class="footer">
+        <div class="left">
+          <a href="nesting.html" title="Nesting"
+             >previous</a> |
+          <a href="rules_directives.html" title="@-rules and directives"
+             >next</a>
+            <br/>
+            <a href="../_sources/src/sassscript.txt"
+               rel="nofollow">Show Source</a>
+        </div>
+
+        <div class="right">
+          
+    <div class="footer">
+        &copy; Copyright 2012-2013, Milan Darjanin.
+      Last updated on May 31, 2013.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+        </div>
+        <div class="clearer"></div>
+      </div>
+    </div>
+
+  </body>
+</html>

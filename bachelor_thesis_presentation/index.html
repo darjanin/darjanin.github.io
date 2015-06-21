@@ -1,0 +1,459 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>reveal.js - The HTML Presentation Framework</title>
+
+		<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+		<meta name="author" content="Hakim El Hattab">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="css/reveal.min.css">
+		<link rel="stylesheet" href="css/theme/solarized.css" id="theme">
+
+		<!-- For syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn_edited.css">
+
+		<!-- If the query includes 'print-pdf', use the PDF print sheet -->
+		<script>
+			document.write( '<link rel="stylesheet" href="css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+
+				<section>
+					<h1>Tutorial to Compass and SASS</h1>
+					<h3>Tutoriál ku Compass a SASS</h3>
+					<p style="margin-top: 300px;">
+						<small style="float: left;">Autor: Milan Darjanin</small>
+						<small style="float: right;">Vedúci: Tomáš Kulich</small>
+					</p>
+				</section>
+
+				<section>
+					<h2>Motivácia práce</h2>
+					<ul>
+						<li class=fragment>
+							priniesť CSS vývojárom to najpodstatnejšie z dokumentácii k jazyku <strong>Sass</strong> a frameworku <strong>Compass</strong> na uľahčenie začiatkov s týmto preprocesorom
+						</li>
+
+						<li class="fragment">
+							navrhnúť zásady, ktoré zvýšia úžitok z používania Sass
+						</li>
+						
+						<li class="fragment">
+							očakáva sa znalosť CSS na pokročilej úrovni
+						</li>
+					</ul>
+					<aside class="notes">
+						Oh hey, these are some notes. They'll be hidden in your presentation, but you can see them if you open the speaker notes window (hit 's' on your keyboard).
+					</aside>
+				</section>
+
+				<!-- Example of nested vertical slides -->
+				<section>
+					<h2>Online verzia</h2>
+					<ul>
+						<li class="fragment">
+							dôležitým prvkom je online verzia, ktorá bude následne zverejnená a voľne dostupná
+						</li>
+						<li class="fragment">
+							<a href="http://sphinx-doc.org/">Sphinx Doc</a> - generátor dokumentácie
+						</li>
+						<li class="fragment">
+							práca je písaná v Restructed Text
+						</li>
+						<li class="fragment">
+							výhodou je následná možnosť z jedného textu vygenerovať aj HTML verziu aj LaTeX verziu
+						</li>
+					</ul>
+				</section>
+
+				<section>
+					<section>
+						<h1>Sass</h1>
+						<h2>Syntactically Awesome Stylesheets</h2>
+						<a href="http://sass-lang.com" target="_blank">sass-lang.com</a>
+					</section>
+					<section>
+						<h2>Syntax</h2>
+						<ul>
+							<li class="fragment">
+								dve možnosti
+								<ul>
+									<li class="fragment"><strong>.sass</strong> <span class="fragment">=> pôvodná syntax, ktorá je podobná Ruby</span></li>
+									<li class="fragment"><strong>.scss</strong> <span class="fragment">=> Sassy CSS - prišla s 3. verziou Sass</span></li>
+								</ul>
+							</li>
+							<li class="fragment">Sassy CSS je používaná v celom tutoriáli</li>
+						</ul>
+						<pre class="fragment pre-left"><strong>.sass</strong><code style="overflow: hidden;">
+#main
+  background: red;
+  color: white
+  a
+    font:
+      weight: bold
+      size: 2em
+      family: serif
+    color: yellow
+    &:hover
+      color: green
+						</code></pre>
+						<pre class="fragment pre-right"><strong>.scss</strong><code style="overflow: hidden;">
+#main {
+  background: red;
+  color: white;
+  a {
+    font: {
+      weight: bold;
+      size: 2em;
+      family: serif;
+    }
+    color: yellow;
+    &:hover {
+      color: green;
+    }
+  }
+}
+						</code></pre>
+					</section>					
+					<section>
+						<h2>Premenné</h2>
+						<ul>
+							<li class="fragment"><code>$variable-name: value;</code></li>
+							<li class="fragment">možné hodnoty: CSS definícia farby, reťazec, booleans, zoznamy(list), číslo alebo dĺžka s jednotkou</li>
+						</ul>
+						<pre class="pre-left fragment"><strong>.scss</strong><code>
+$color-var-name: rgba(42,42,42,1);
+$length-var-name: 960px;
+$string-var-name: "|";
+$number: 0.2;
+
+#main {
+    width: $length-var-name
+}
+a {
+    color: $color-var-name;
+    opacity: $number;
+}
+a:after {
+	content: $string-var-name;
+}
+						</code></pre>
+						<pre class="pre-right fragment"><strong>.css</strong><code>
+#main {
+    width: 960px;
+}
+a {
+    color: rgba(42,42,42,1);
+    opacity: 0.2;
+}
+a:after {
+	content: "|";
+}
+						</code></pre>
+					</section>
+					<section>
+						<h2>Nesting</h2>
+						<pre class="fragment full-center"><strong>.html</strong><code>
+&lt;div id="main"&gt;
+	&lt;a href="#"&gt;Link&lt;/a&gt;
+&lt;/div&gt;
+						</code></pre>
+						<pre class="pre-left fragment"><strong>.scss</strong><code>
+#main {
+  background: red;
+  color: white;
+  a {
+    font: {
+      weight: bold;
+      size: 2em;
+      family: serif;
+    }
+    color: yellow;
+    &:hover {
+      color: green;
+    }
+  }
+}
+						</code></pre>
+						<pre class="pre-right fragment"><strong>.css</strong><code>
+#main {
+  background: red;
+  color: white;
+}
+#main a {
+  font-weight: bold;
+  font-size: 2em;
+  font-family: serif;
+  color: yellow;
+}
+#main a:hover {
+  color: green;
+}
+						</code></pre>
+					</section>
+					<section>
+					<h2>Sass Script</h2>
+						<ul>
+							<li class="fragment">aritmetické operácie +, -, *, /
+								<ul>
+									<li class="fragment">farby
+										<pre class="pre-full-center"><code>color: #010203 + #040506; => color: #050709;</code></pre>
+									</li>
+									<li class="fragment">reťazce (iba operácia +)
+										<pre class="pre-full-center"><code>font-family: sans- + "serif"; => font-family: sans-serif;</code></pre>
+									</li>
+									<li class="fragment">veľkosti
+										<pre class="pre-full-center"><code>width: 1em + (2em * 3); => width: 7em;</code></pre>
+									</li>
+								</ul>
+							</li>
+							<li class="fragment">interpolácia</li>
+								<div class="fragment">
+									<pre class="pre-left" contenteditable><strong>.scss</strong><code>
+$name: foo;
+$attr: border;
+p.#{$name} {
+  #{$attr}-color: blue;
+}
+									</code></pre>
+									<pre class="pre-right" contenteditable><strong>.css</strong><code>
+p.foo {
+  border-color: blue; 
+}
+									</code></pre>
+								</div>
+						</ul>
+					</section>
+					<section>
+					<h2>@import</h2>
+						<ul>
+							<li class="fragment">podobný @import-u v CSS, ak
+								<ul>
+									<li class="fragment">koncovka súboru je <code>.css</code></li>
+									<li class="fragment">názov súboru začína s <code>http://</code></li>
+									<li class="fragment">obsahuje <code>url()</code></li>
+									<li class="fragment">používa media query <code>@import "matfyz" screen;</code></li>
+								</ul>
+							</li>
+							<li class="fragment">ale aj "chytrejší" ako CSS @import
+								<ul>
+									<li class="fragment">obsah vložených <code>.scss</code> súborov bude spojený do jedného <code>.css</code> súboru</li>
+									<li class="fragment">vygeneruje sa <code>.css</code> verzia vložených súborov</li>
+									<li class="fragment">
+										pokiaľ pred názov bude tvaru <code>_name.scss</code>, tak obsah sa pripojí do celku, ale nevygenereguje sa <code>.css</code> verzia
+									</li>
+									<!-- <li class="fragment">možnosť vnárať (nested) </li> -->
+								</ul>
+							</li>
+							
+						</ul>
+					</section>
+					<section>
+					<h2>mixiny</h2>
+						<ul>
+							<li class="fragment">dovoľujú definovať kód, ktorý sa bude dať znovu používať
+								<pre class="pre-full-center"><code>
+@mixin sexy-border($color, $width: 1in) {
+  border: {
+    color: $color;
+    width: $width;
+    style: dashed;
+  }
+}
+p { @include sexy-border(blue); }
+h1 { @include sexy-border(blue, 2in); }
+								</code></pre>
+							</li>
+							<li class="fragment">definícia <code>@mixin</code></li>
+							<li class="fragment">možnosť použiť argumenty</li>
+							<li class="fragment">volanie pomocou <code>@include</code></li>
+							<li class="fragment">celý obsah mixinu sa vloží na miesto volania</li>
+						</ul>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h1>Compass</h1>
+						<a href="http://compass-style.org" target="_blank">compass-style.org</a>
+					</section>
+					<section>
+						<h2>Základy</h2>	
+						<ul>
+							<li class="fragment">knižnica mixinov a funkcii, ktoré rozširujú funkcionalitu Sass</li>
+							<li class="fragment">súčasti
+								<ul>
+									<li class="fragment">CSS3 - obsahuje mixiny spojené s novinkami v CSS3</li>
+									<li class="fragment">Helpers - SassScript funkcie</li>
+									<li class="fragment">Layout - práca s mriežkami pri designovaní</li>
+									<li class="fragment">Reset - reset východzích nastavení prehliadača</li>
+									<li class="fragment">Typography - práca s písmom (vertical rhythm napríklad)</li>
+									<li class="fragment">Utilities - mixiny pre niektoré bežné činnosti webdesigne</li>
+								</ul>
+							</li>
+							<li class="fragment"><code>CSS3, typography a utilities</code> sa vloží pomocou <code>@import "compass";</code></li>
+							<li class="fragment"><code>@import "compass/[názov_modulu]";</code></li>
+						</ul>
+					</section>
+					<section>
+						<h2>CSS3 - Box shadow (.scss)</h2>
+						<pre class="pre-full-center" contenteditable><code>
+@import "compass/css3";
+ 
+.box-shadow-example div {
+  width: 40px;
+  height: 40px;
+  background: #eeeeee;
+  margin: 20px;
+  float: left; }
+ 
+// Default single box shadow
+#box-shadow-default {
+  @include single-box-shadow; }
+ 
+// Box shadow with custom settings
+#box-shadow-custom {
+  @include box-shadow(red 2px 2px 10px); }
+ 
+#box-shadow-custom-multiple {
+  @include box-shadow(rgba(blue, 0.4) 0 0 25px,
+  	rgba(green, 0.2) 0 0 3px 1px inset);}
+						</code></pre>
+					</section>
+
+					<section>
+						<h2>CSS3 - Box shadow (.css)</h2>
+						<pre class="pre-full-center" contenteditable style="-webkit-box-shadow: rgba(0, 0, 255, 0.4) 0 0 25px, 
+  		rgba(0, 128, 0, 0.2) 0 0 3px 1px inset !important;"><code>
+.box-shadow-example div {
+  width: 40px;
+  height: 40px;
+  background: #eeeeee;
+  margin: 20px;
+  float: left;
+}
+#box-shadow-default {
+  -webkit-box-shadow: 0px 0px 5px #333333;
+  -moz-box-shadow: 0px 0px 5px #333333;
+  box-shadow: 0px 0px 5px #333333;
+}
+#box-shadow-custom {
+  -webkit-box-shadow: red 2px 2px 10px;
+  -moz-box-shadow: red 2px 2px 10px;
+  box-shadow: red 2px 2px 10px;
+}
+#box-shadow-custom-multiple {
+  -webkit-box-shadow: rgba(0, 0, 255, 0.4) 0 0 25px, 
+  		rgba(0, 128, 0, 0.2) 0 0 3px 1px inset;
+  -moz-box-shadow: rgba(0, 0, 255, 0.4) 0 0 25px, 
+  		rgba(0, 128, 0, 0.2) 0 0 3px 1px inset;
+  box-shadow: rgba(0, 0, 255, 0.4) 0 0 25px, 
+  		rgba(0, 128, 0, 0.2) 0 0 3px 1px inset;}
+						</code></pre>
+					</section>
+					<section>
+						<h2>Sprites</h2>	
+						<img src="sprites.png" alt="sprites">
+					</section>
+					<section>
+						<h2>Sprites - vygenerovaný kód</h2>	
+						<pre class="pre-full-center"><code>
+/images/my-icons/new.png
+/images/my-icons/save.png 
+/images/my-icons/edit.png
+/images/my-icons/delete.png
+					</code></pre>
+						<pre class="pre-full-center"><code>
+@import "my-icons/*.png";
+@include all-my-icons-sprites;
+						</code></pre>
+						<pre class="pre-full-center"><code>
+.my-icons-sprite,
+.my-icons-delete,
+.my-icons-edit,
+.my-icons-new,
+.my-icons-save   { background: url('/images/my-icons-s34fe0604ab.png') no-repeat; }
+
+.my-icons-delete { background-position: 0 0; }
+.my-icons-edit   { background-position: 0 -32px; }
+.my-icons-new    { background-position: 0 -64px; }
+.my-icons-save   { background-position: 0 -96px; }
+						</code></pre>
+					</section>
+				</section>
+
+				<section>
+					<h2>Zopár rád</h2>
+					<ul>
+						<li class="fragment">názvy tvorené jednotným spôsobom <code>.nazov-triedy</code></li>
+						<li class="fragment">nesting (vnáranie) používajte rozumne</li>
+						<li class="fragment">rozložiť si kód do menších súborov</li>
+						<li class="fragment">vytvoriť si konfiguračný súbor</li>
+						<li class="fragment">mať na pamäti DRY (Don't repeat yourself)</li>
+					</ul>
+				</section>
+
+				<section>
+					<h1>Priestor pre otázky</h1>
+				</section>
+
+				<section>
+					<h2 style="font-family: Lato, sans-serif;">Ďakujem za pozornosť</h2>
+				</section>
+
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.min.js"></script>
+
+		<script>
+
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+				transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/showdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+					// { src: 'plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; } }
+					// { src: 'plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>

@@ -1,0 +1,325 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>@-rules and directives &mdash; Tutorial to Compass and Sass</title>
+    
+    <link rel="stylesheet" href="../_static/agogo.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.3',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="Tutorial to Compass and Sass" href="../index.html" />
+    <link rel="next" title="Mixins" href="mixins.html" />
+    <link rel="prev" title="SassScript" href="sassscript.html" /> 
+  </head>
+  <body>
+    <div class="header-wrapper">
+      <div class="header">
+        <div class="headertitle"><a
+          href="../index.html">Tutorial to Compass and Sass</a></div>
+        <div class="rel">
+          <a href="sassscript.html" title="SassScript"
+             accesskey="P">previous</a> |
+          <a href="mixins.html" title="Mixins"
+             accesskey="N">next</a>
+        </div>
+       </div>
+    </div>
+
+    <div class="content-wrapper">
+      <div class="content">
+        <div class="document">
+            
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="rules-and-directives">
+<h1>&#64;-rules and directives<a class="headerlink" href="#rules-and-directives" title="Permalink to this headline">¶</a></h1>
+<p>Sass supports all CSS &#64;-rules like <cite>&#64;import</cite>, <cite>&#64;media</cite> or <cite>&#64;font-face</cite>, but some of them extend and gives them more power.</p>
+<div class="section" id="import">
+<h2>&#64;import<a class="headerlink" href="#import" title="Permalink to this headline">¶</a></h2>
+<p>Once using Sass, you&#8217;ll probably meet this rule quite often. It extends CSS import rule, so you can import <cite>.scss</cite> and <cite>.sass</cite> files. The output will be merged into one single CSS file and all variables and mixins defined in the imported files will be available in the main file. With this behavior you can split your styles into smaller files defining specific elements. It makes easy to append or edit the code.</p>
+<p>There are some special circumstances at which will the &#64;import rule works like the CSS.</p>
+<ul class="simple">
+<li>The file&#8217;s extension is <cite>.css</cite>.</li>
+<li>The filename begins with <cite>http://</cite>.</li>
+<li>If the filename is <cite>url()</cite>.</li>
+<li>If the <cite>&#64;import</cite> has any media queries.</li>
+</ul>
+<div class="highlight-scss"><div class="highlight"><pre><span class="k">@import</span> <span class="s2">&quot;cube.css&quot;</span><span class="p">;</span>
+<span class="k">@import</span> <span class="s2">&quot;cube&quot;</span> <span class="n">screen</span><span class="p">;</span>
+<span class="k">@import</span> <span class="s2">&quot;http://cube.edu/style&quot;</span><span class="p">;</span>
+<span class="k">@import</span> <span class="sx">url(cube)</span><span class="p">;</span>
+</pre></div>
+</div>
+<div class="highlight-css"><div class="highlight"><pre><span class="k">@import</span> <span class="s2">&quot;cube.css&quot;</span><span class="p">;</span>
+<span class="k">@import</span> <span class="s2">&quot;cube&quot;</span> <span class="nt">screen</span><span class="p">;</span>
+<span class="k">@import</span> <span class="s2">&quot;http://cube.edu/style&quot;</span><span class="p">;</span>
+<span class="k">@import</span> <span class="nt">url</span><span class="o">(</span><span class="nt">cube</span><span class="o">)</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>If we want to import the file <cite>cube.scss</cite> we can write</p>
+<div class="highlight-scss"><div class="highlight"><pre><span class="k">@import</span> <span class="s2">&quot;cube.scss&quot;</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>or just simply</p>
+<div class="highlight-scss"><div class="highlight"><pre><span class="k">@import</span> <span class="s2">&quot;cube&quot;</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>If you want to import more files, it&#8217;s possible to write</p>
+<div class="highlight-scss"><div class="highlight"><pre><span class="k">@import</span> <span class="s2">&quot;first&quot;</span><span class="o">,</span> <span class="s2">&quot;second&quot;</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>If you name the <cite>.scss</cite> file with underscore before filename <cite>_cube.scss</cite>, then its code will be added to the main <cite>.css</cite> file, but it will not be compiled to CSS. In <cite>&#64;import</cite> you don&#8217;t need to write the underscore, but it&#8217;s important that in the same folder can not be  more files with the same name. (If in folder is <cite>cube.scss</cite>, than you can not use <cite>_cube.scss</cite>). This type of naming of files is called partials.</p>
+<p>One of earlier mentioned features of Sass is nesting and it&#8217;s possible to use it with <cite>&#64;import</cite>.  Most of time you will use the <cite>&#64;import</cite> at the top of the document. But there can come situation when it would be handy to include whole another file into some class. At that case you can call <cite>&#64;import</cite> under class.</p>
+<p>This is demonstrated in the example that follows. The <cite>box.scss</cite> and <cite>screen.scss</cite> contain following code</p>
+<div class="highlight-scss"><div class="highlight"><pre><span class="c1">// Content of the box.scss</span>
+<span class="nc">.box</span> <span class="p">{</span>
+    <span class="na">color</span><span class="o">:</span> <span class="nb">red</span><span class="p">;</span>
+    <span class="nc">.button</span> <span class="p">{</span>
+        <span class="na">background</span><span class="o">:</span> <span class="mh">#444</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// Content of the screen.scss</span>
+<span class="nc">.screen</span> <span class="p">{</span>
+    <span class="k">@import</span> <span class="s1">&#39;</span><span class="s2">box.scss&#39;</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The compiled version is</p>
+<div class="highlight-css"><div class="highlight"><pre><span class="nc">.screen</span> <span class="nc">.box</span> <span class="p">{</span>
+    <span class="k">color</span><span class="o">:</span> <span class="nb">red</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nc">.screen</span> <span class="nc">.box</span> <span class="nc">.button</span> <span class="p">{</span>
+    <span class="k">background</span><span class="o">:</span> <span class="m">#444</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>There are few exceptions. There exists directives that can be only at the base level of the document. So if you are calling <cite>&#64;import</cite> into selector than the imported file can not contain <cite>&#64;mixin</cite> and <cite>&#64;charset</cite>. It&#8217;s not possible to &#64;import in mixins and control directives.</p>
+</div>
+<div class="section" id="media">
+<h2>&#64;media<a class="headerlink" href="#media" title="Permalink to this headline">¶</a></h2>
+<p><cite>&#64;media</cite> directive can be used as defined in the plain CSS, but it has one extra capability - it can be nested in CSS rule.  If it appears nested, than it bubble to the base level, containing all selectors in which it&#8217;s included. This approach helps to make your code readable if you are using the &#64;media.</p>
+<div class="highlight-scss"><div class="highlight"><pre><span class="nc">.sidebar</span> <span class="p">{</span>
+    <span class="na">width</span><span class="o">:</span> <span class="mi">300</span><span class="kt">px</span><span class="p">;</span>
+    <span class="k">@media</span> <span class="nt">screen</span> <span class="nt">and</span> <span class="o">(</span><span class="nt">orientation</span><span class="nd">:</span> <span class="nt">landscape</span><span class="o">)</span> <span class="p">{</span>
+        <span class="na">width</span><span class="o">:</span> <span class="mi">500</span><span class="kt">px</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="highlight-css"><div class="highlight"><pre><span class="nc">.sidebar</span> <span class="p">{</span>
+    <span class="k">width</span><span class="o">:</span> <span class="m">300px</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">@media</span> <span class="nt">screen</span> <span class="nt">and</span> <span class="o">(</span><span class="nt">orientation</span><span class="o">:</span> <span class="nt">landscape</span><span class="o">)</span> <span class="p">{</span>
+    <span class="nc">.sidebar</span> <span class="p">{</span>
+        <span class="k">width</span><span class="o">:</span> <span class="m">500px</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>This way you don&#8217;t break the flow of your selectors that are nested into each and again you don&#8217;t need to repeat to writing the selector that you want to specify with &#64;media. You can complain that you often write the value for the <cite>&#64;media</cite>, but we have variables. This is nice place where you can use it.</p>
+<div class="highlight-scss"><div class="highlight"><pre><span class="nv">$landscape</span><span class="o">:</span> <span class="s1">&#39;</span><span class="s2">screen and (orientation: landscape)&#39;</span><span class="p">;</span>
+
+<span class="nc">.sidebar</span> <span class="p">{</span>
+    <span class="na">width</span><span class="o">:</span> <span class="mi">300</span><span class="kt">px</span><span class="p">;</span>
+    <span class="k">@media</span> <span class="nn">#</span><span class="p">{</span><span class="nt">landscape</span><span class="p">}</span> <span class="p">{</span>
+        <span class="na">width</span><span class="o">:</span> <span class="mi">500</span><span class="kt">px</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="nc">.content</span> <span class="p">{</span>
+    <span class="na">width</span><span class="o">:</span> <span class="mi">400</span><span class="kt">px</span><span class="p">;</span>
+    <span class="k">@media</span> <span class="nn">#</span><span class="p">{</span><span class="nt">landscape</span><span class="p">}</span> <span class="p">{</span>
+        <span class="na">width</span><span class="o">:</span> <span class="mi">600</span><span class="kt">px</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="highlight-css"><div class="highlight"><pre><span class="k">@media</span> <span class="nt">screen</span> <span class="nt">and</span> <span class="o">(</span><span class="nt">orientation</span><span class="o">:</span> <span class="nt">landscape</span><span class="o">)</span> <span class="p">{</span>
+    <span class="nc">.sidebar</span> <span class="p">{</span>
+        <span class="k">width</span><span class="o">:</span> <span class="m">500px</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="nc">.content</span> <span class="p">{</span>
+        <span class="k">width</span><span class="o">:</span> <span class="m">600px</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="nc">.sidebar</span> <span class="p">{</span>
+    <span class="k">width</span><span class="o">:</span> <span class="m">300px</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nc">.content</span> <span class="p">{</span>
+    <span class="k">width</span><span class="o">:</span> <span class="m">400px</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>You can define  more &#64;media properties for specific devices at the start and if you need to change some properties you don&#8217;t need to look through documents where you write device-specific rules and no selectors were written twice.</p>
+</div>
+<div class="section" id="extend">
+<h2>&#64;extend<a class="headerlink" href="#extend" title="Permalink to this headline">¶</a></h2>
+<p>There are often cases when you need to use the all rules from one selector and add only some new. Most used way how to do that is using some general class and than more specific class that sets the different properties. Than the HTML will be following</p>
+<div class="highlight-html"><div class="highlight"><pre><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;error error-login&quot;</span><span class="nt">&gt;</span>
+    Sorry, bad login or password. Try it again.
+<span class="nt">&lt;/div&gt;</span>
+</pre></div>
+</div>
+<p>The css to the code will be</p>
+<div class="highlight-css"><div class="highlight"><pre><span class="nc">.error</span> <span class="p">{</span>
+    <span class="k">border</span><span class="o">:</span> <span class="k">thin</span> <span class="k">solid</span> <span class="m">#FF5151</span><span class="p">;</span>
+    <span class="k">background-color</span><span class="o">:</span> <span class="m">#F9E9E9</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.error-login</span> <span class="p">{</span>
+    <span class="k">border-width</span><span class="o">:</span> <span class="k">thick</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>This approach is functional and it&#8217;s often used, but you must not forgot the error class. The <cite>&#64;extend</cite> directive helps to avoid the some problems that are possible using this way. Than in the HTML will be written</p>
+<div class="highlight-html"><div class="highlight"><pre><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;error-login&quot;</span><span class="nt">&gt;</span>
+    Sorry, bad login or password. Try it again.
+<span class="nt">&lt;/div&gt;</span>
+</pre></div>
+</div>
+<div class="highlight-scss"><div class="highlight"><pre><span class="nc">.error</span> <span class="p">{</span>
+    <span class="na">border</span><span class="o">:</span> <span class="no">thin</span> <span class="no">solid</span> <span class="mh">#FF5151</span><span class="p">;</span>
+    <span class="na">background-color</span><span class="o">:</span> <span class="mh">#F9E9E9</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nc">.error-login</span> <span class="p">{</span>
+    <span class="k">@extend</span> <span class="nc">.error</span><span class="o">;</span>
+    <span class="nt">border-width</span><span class="nd">:</span> <span class="nt">thick</span><span class="o">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="highlight-css"><div class="highlight"><pre><span class="nc">.error</span><span class="o">,</span> <span class="nc">.error-login</span> <span class="p">{</span>
+    <span class="k">border</span><span class="o">:</span> <span class="k">thin</span> <span class="k">solid</span> <span class="m">#FF5151</span><span class="p">;</span>
+    <span class="k">background-color</span><span class="o">:</span> <span class="m">#F9E9E9</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nc">.error-login</span> <span class="p">{</span>
+    <span class="k">border-width</span><span class="o">:</span> <span class="k">thick</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><cite>&#64;extend</cite> works by inserting extending selector anywhere the extended selector appears. For better illustration I add an example.</p>
+<div class="highlight-scss"><div class="highlight"><pre><span class="nc">.error</span> <span class="p">{</span>
+    <span class="na">border</span><span class="o">:</span> <span class="no">thin</span> <span class="no">solid</span> <span class="nb">red</span><span class="p">;</span>
+    <span class="na">padding</span><span class="o">:</span> <span class="mf">.5</span><span class="kt">em</span><span class="p">;</span>
+    <span class="na">color</span><span class="o">:</span> <span class="nb">red</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nc">.error.icon</span> <span class="p">{</span>
+    <span class="na">background</span><span class="o">:</span> <span class="sx">url(&#39;images/error.png&#39;)</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nc">.error-login</span> <span class="p">{</span>
+    <span class="k">@expand</span> <span class="nc">.error</span><span class="o">;</span>
+    <span class="nt">font-weight</span><span class="nd">:</span> <span class="nt">bold</span><span class="o">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="highlight-css"><div class="highlight"><pre><span class="nc">.error</span><span class="o">,</span> <span class="nc">.error-login</span> <span class="p">{</span>
+    <span class="k">border</span><span class="o">:</span> <span class="k">thin</span> <span class="k">solid</span> <span class="nb">red</span><span class="p">;</span>
+    <span class="k">padding</span><span class="o">:</span> <span class="m">.5em</span><span class="p">;</span>
+    <span class="k">color</span><span class="o">:</span> <span class="nb">red</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.error.icon</span><span class="o">,</span> <span class="nc">.error-login.icon</span> <span class="p">{</span>
+    <span class="k">background</span><span class="o">:</span> <span class="sx">url(&#39;images/error.png&#39;)</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.error-login</span> <span class="p">{</span>
+    <span class="k">font-weight</span><span class="o">:</span> <span class="k">bold</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>If you are familiar with Object Oriented languages such Java or C++ you sure know the meaning of abstract class or function. There are not allowed instances from abstract classes, so they must be inherited by another class. In Sass exists similar way how to define the selector. It&#8217;s called &#8220;placeholder selectors&#8221;. They are defined in Sass version of code, but they are not compiled to the CSS. Only if they are extended by another selector. It helps to avoid names collisions and the in the output CSS they show up only if they are needed. They are most of time used if you are creating framework. The syntax difference from the selectors for classes and ids only in first characters. You don&#8217;t use the <cite>.</cite> or <cite>#</cite>, but <cite>%</cite>. So &#8220;placeholder selector&#8221; for the error could be <cite>%error</cite>. Everything else works like it is normal selector.</p>
+<p>The main difference between using extend and mixins for the output CSS. Say that we want to create four buttons and only the color of the background would be changed. If you use mixins for that the output would have the same code for every button generated, and only the color codes would be different. On other hand, if you extend generic &#8220;placeholder selector&#8221;  for buttons and set for each one only different color, than the generated CSS will have shorter code. In situation when you want to load your site as fast as possible is this approach good idea. But always this things depends on the situation.</p>
+<p>If you want to use <cite>&#64;extend</cite> inside of the media block, there is some restrictions. You can extend only selectors that are inside of the media block.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+        </div>
+        <div class="sidebar">
+          <h3>Table Of Contents</h3>
+          <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="first_steps_to_the_sass.html">First steps to the Sass</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sass_syntax.html">Sass Syntax</a></li>
+<li class="toctree-l1"><a class="reference internal" href="variables.html">Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nesting.html">Nesting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sassscript.html">SassScript</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="rules_directives.html">&#64;-rules and directives</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="rules_directives.html#import">&#64;import</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rules_directives.html#media">&#64;media</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rules_directives.html#extend">&#64;extend</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="mixins.html">Mixins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="control_directives.html">Control Directives</a></li>
+<li class="toctree-l1"><a class="reference internal" href="compass_basics.html">Compass</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_projects.html">Working with projects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="compass_core.html">Compass core</a></li>
+</ul>
+
+          <h3 style="margin-top: 1.5em;">Search</h3>
+          <form class="search" action="../search.html" method="get">
+            <input type="text" name="q" />
+            <input type="submit" value="Go" />
+            <input type="hidden" name="check_keywords" value="yes" />
+            <input type="hidden" name="area" value="default" />
+          </form>
+          <p class="searchtip" style="font-size: 90%">
+            Enter search terms or a module, class or function name.
+          </p>
+        </div>
+        <div class="clearer"></div>
+      </div>
+    </div>
+
+    <div class="footer-wrapper">
+      <div class="footer">
+        <div class="left">
+          <a href="sassscript.html" title="SassScript"
+             >previous</a> |
+          <a href="mixins.html" title="Mixins"
+             >next</a>
+            <br/>
+            <a href="../_sources/src/rules_directives.txt"
+               rel="nofollow">Show Source</a>
+        </div>
+
+        <div class="right">
+          
+    <div class="footer">
+        &copy; Copyright 2012-2013, Milan Darjanin.
+      Last updated on May 31, 2013.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+        </div>
+        <div class="clearer"></div>
+      </div>
+    </div>
+
+  </body>
+</html>

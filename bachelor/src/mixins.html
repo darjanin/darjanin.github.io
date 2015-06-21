@@ -1,0 +1,208 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Mixins &mdash; Tutorial to Compass and Sass</title>
+    
+    <link rel="stylesheet" href="../_static/agogo.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.3',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="Tutorial to Compass and Sass" href="../index.html" />
+    <link rel="next" title="Control Directives" href="control_directives.html" />
+    <link rel="prev" title="@-rules and directives" href="rules_directives.html" /> 
+  </head>
+  <body>
+    <div class="header-wrapper">
+      <div class="header">
+        <div class="headertitle"><a
+          href="../index.html">Tutorial to Compass and Sass</a></div>
+        <div class="rel">
+          <a href="rules_directives.html" title="@-rules and directives"
+             accesskey="P">previous</a> |
+          <a href="control_directives.html" title="Control Directives"
+             accesskey="N">next</a>
+        </div>
+       </div>
+    </div>
+
+    <div class="content-wrapper">
+      <div class="content">
+        <div class="document">
+            
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="mixins">
+<h1>Mixins<a class="headerlink" href="#mixins" title="Permalink to this headline">¶</a></h1>
+<p>Some of many advantages of Sass is keeping your code readable and don&#8217;t repeating yourself. For the purpose of DRY (don’t repeat yourself) mixins exist and like many things in Sass come from “Ruby universe”, mixins exists there too. The way how mixins work is to include their code at the place where they were called.</p>
+<p>Mixins are defined with the directive <cite>&#64;mixin</cite> following with the name of mixin and optionally the arguments. After that is there a block containing content of mixin closed into curly brackets.</p>
+<div class="highlight-scss"><div class="highlight"><pre><span class="k">@mixin</span><span class="nf"> button</span> <span class="p">{</span>
+    <span class="na">border</span><span class="o">:</span> <span class="no">thin</span> <span class="no">solid</span> <span class="mh">#40AECA</span><span class="p">;</span>
+    <span class="na">background</span><span class="o">:</span> <span class="mh">#85C7D8</span><span class="p">;</span>
+    <span class="na">border-radius</span><span class="o">:</span> <span class="mi">5</span><span class="kt">px</span><span class="p">;</span>
+    <span class="na">color</span><span class="o">:</span> <span class="nb">white</span><span class="p">;</span>
+    <span class="k">&amp;</span><span class="nd">:hover</span> <span class="p">{</span>
+        <span class="na">background</span><span class="o">:</span> <span class="mh">#7EB7C6</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>If you try to compile this with sass, than the output will be empty. The reason is that you don&#8217;t use the mixin. And the second thing what you can see at definition of mixin is <cite>&amp;:hover</cite>. We met with it in nesting, but there we knew who was parent. Here will be the parent selector defined at the moment of calling the mixin.</p>
+<p>For inserting the content of the mixin use <cite>&#64;include</cite> directive.</p>
+<div class="highlight-scss"><div class="highlight"><pre><span class="nc">.button</span> <span class="p">{</span>
+    <span class="k">@include</span><span class="nd"> button</span><span class="p">;</span>
+    <span class="na">height</span><span class="o">:</span> <span class="mi">30</span><span class="kt">px</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="highlight-css"><div class="highlight"><pre><span class="nc">.button</span> <span class="p">{</span>
+    <span class="k">border</span><span class="o">:</span> <span class="k">thin</span> <span class="k">solid</span> <span class="m">#40AECA</span><span class="p">;</span>
+    <span class="k">background</span><span class="o">:</span> <span class="m">#85C7D8</span><span class="p">;</span>
+    <span class="k">border</span><span class="o">-</span><span class="n">radius</span><span class="o">:</span> <span class="m">5px</span><span class="p">;</span>
+    <span class="k">color</span><span class="o">:</span> <span class="nb">white</span><span class="p">;</span>
+    <span class="k">height</span><span class="o">:</span> <span class="m">30px</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nc">.button</span><span class="nd">:hover</span> <span class="p">{</span>
+        <span class="k">background</span><span class="o">:</span> <span class="m">#7EB7C6</span><span class="p">;</span>
+    <span class="p">}</span>
+</pre></div>
+</div>
+<p>But this is not all what comes with mixins. I give you example when you need to have same styled buttons, but with different background colors. You can define the new color after <cite>&#64;include button</cite>, but there comes some repeating work. You must always define the new behavior for the hover state too. All because of using different color. How can we improve it? We can use the arguments that would be passed to the mixin. The best way how to explain it would be with example.</p>
+<p>Say that you want to create three different color buttons. One would be normal with light gray background and would be for classic actions. Next on would be the error button that has red background and finally information button with blue background. And we want to define one mixin and then change just colors when we include it.</p>
+<div class="highlight-scss"><div class="highlight"><pre><span class="k">@mixin</span><span class="nf"> button</span><span class="p">(</span><span class="nv">$color</span><span class="p">)</span> <span class="p">{</span>
+    <span class="na">border</span><span class="o">:</span> <span class="no">thin</span> <span class="no">solid</span> <span class="nv">$color</span> <span class="o">-</span> <span class="mh">#222222</span><span class="p">;</span>
+    <span class="na">background</span><span class="o">:</span> <span class="nv">$color</span><span class="p">;</span>
+    <span class="na">border-radius</span><span class="o">:</span> <span class="mi">5</span><span class="kt">px</span><span class="p">;</span>
+    <span class="na">color</span><span class="o">:</span> <span class="nb">white</span><span class="p">;</span>
+    <span class="na">padding</span><span class="o">:</span> <span class="mi">5</span><span class="kt">px</span><span class="p">;</span>
+    <span class="k">&amp;</span><span class="nd">:hover</span> <span class="p">{</span>
+        <span class="na">background</span><span class="o">:</span> <span class="nv">$color</span> <span class="o">-</span> <span class="mh">#161616</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="nc">.button</span> <span class="p">{</span>
+    <span class="k">@include</span><span class="nd"> button</span><span class="p">(</span><span class="mh">#B1B1B1</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="nc">.error-button</span> <span class="p">{</span>
+    <span class="k">@include</span><span class="nd"> button</span><span class="p">(</span><span class="mh">#FB4242</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="nc">.info-button</span> <span class="p">{</span>
+    <span class="k">@include</span><span class="nd"> button</span><span class="p">(</span><span class="mh">#549EE5</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="highlight-css"><div class="highlight"><pre><span class="nc">.button</span> <span class="p">{</span>
+  <span class="k">border</span><span class="o">:</span> <span class="k">thin</span> <span class="k">solid</span> <span class="m">#8f8f8f</span><span class="p">;</span>
+  <span class="k">background</span><span class="o">:</span> <span class="m">#b1b1b1</span><span class="p">;</span>
+  <span class="k">border</span><span class="o">-</span><span class="n">radius</span><span class="o">:</span> <span class="m">5px</span><span class="p">;</span>
+  <span class="k">color</span><span class="o">:</span> <span class="nb">white</span><span class="p">;</span>
+  <span class="k">padding</span><span class="o">:</span> <span class="m">5px</span><span class="p">;</span> <span class="p">}</span>
+  <span class="nc">.button</span><span class="nd">:hover</span> <span class="p">{</span>
+    <span class="k">background</span><span class="o">:</span> <span class="m">#9b9b9b</span><span class="p">;</span> <span class="p">}</span>
+
+<span class="nc">.error-button</span> <span class="p">{</span>
+  <span class="k">border</span><span class="o">:</span> <span class="k">thin</span> <span class="k">solid</span> <span class="m">#d92020</span><span class="p">;</span>
+  <span class="k">background</span><span class="o">:</span> <span class="m">#fb4242</span><span class="p">;</span>
+  <span class="k">border</span><span class="o">-</span><span class="n">radius</span><span class="o">:</span> <span class="m">5px</span><span class="p">;</span>
+  <span class="k">color</span><span class="o">:</span> <span class="nb">white</span><span class="p">;</span>
+  <span class="k">padding</span><span class="o">:</span> <span class="m">5px</span><span class="p">;</span> <span class="p">}</span>
+  <span class="nc">.error-button</span><span class="nd">:hover</span> <span class="p">{</span>
+    <span class="k">background</span><span class="o">:</span> <span class="m">#e52c2c</span><span class="p">;</span> <span class="p">}</span>
+
+<span class="nc">.info-button</span> <span class="p">{</span>
+  <span class="k">border</span><span class="o">:</span> <span class="k">thin</span> <span class="k">solid</span> <span class="m">#327cc3</span><span class="p">;</span>
+  <span class="k">background</span><span class="o">:</span> <span class="m">#549ee5</span><span class="p">;</span>
+  <span class="k">border</span><span class="o">-</span><span class="n">radius</span><span class="o">:</span> <span class="m">5px</span><span class="p">;</span>
+  <span class="k">color</span><span class="o">:</span> <span class="nb">white</span><span class="p">;</span>
+  <span class="k">padding</span><span class="o">:</span> <span class="m">5px</span><span class="p">;</span> <span class="p">}</span>
+  <span class="nc">.info-button</span><span class="nd">:hover</span> <span class="p">{</span>
+    <span class="k">background</span><span class="o">:</span> <span class="m">#3e88cf</span><span class="p">;</span> <span class="p">}</span>
+</pre></div>
+</div>
+<p>Knowledge of this techniques is enough for you to start using the Sass on daily basis. There exists some more advanced things that comes handy, but their main purpose is for make more flexible code that can be part of framework like Compass. If you work on large projects and you use some styling techniques often, than it could be good idea to invest some time to write them into simple framework for you and use it in your projects, but before you start writing everything on your own, it could be good idea to jump to the chapter about Compass and look if things that you need do exist in it.</p>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+        </div>
+        <div class="sidebar">
+          <h3>Table Of Contents</h3>
+          <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="first_steps_to_the_sass.html">First steps to the Sass</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sass_syntax.html">Sass Syntax</a></li>
+<li class="toctree-l1"><a class="reference internal" href="variables.html">Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nesting.html">Nesting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sassscript.html">SassScript</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rules_directives.html">&#64;-rules and directives</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="mixins.html">Mixins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="control_directives.html">Control Directives</a></li>
+<li class="toctree-l1"><a class="reference internal" href="compass_basics.html">Compass</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_projects.html">Working with projects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="compass_core.html">Compass core</a></li>
+</ul>
+
+          <h3 style="margin-top: 1.5em;">Search</h3>
+          <form class="search" action="../search.html" method="get">
+            <input type="text" name="q" />
+            <input type="submit" value="Go" />
+            <input type="hidden" name="check_keywords" value="yes" />
+            <input type="hidden" name="area" value="default" />
+          </form>
+          <p class="searchtip" style="font-size: 90%">
+            Enter search terms or a module, class or function name.
+          </p>
+        </div>
+        <div class="clearer"></div>
+      </div>
+    </div>
+
+    <div class="footer-wrapper">
+      <div class="footer">
+        <div class="left">
+          <a href="rules_directives.html" title="@-rules and directives"
+             >previous</a> |
+          <a href="control_directives.html" title="Control Directives"
+             >next</a>
+            <br/>
+            <a href="../_sources/src/mixins.txt"
+               rel="nofollow">Show Source</a>
+        </div>
+
+        <div class="right">
+          
+    <div class="footer">
+        &copy; Copyright 2012-2013, Milan Darjanin.
+      Last updated on May 31, 2013.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+        </div>
+        <div class="clearer"></div>
+      </div>
+    </div>
+
+  </body>
+</html>
