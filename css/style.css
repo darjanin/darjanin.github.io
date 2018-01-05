@@ -15,9 +15,10 @@
 
 body {
   font-family: 'Open Sans', Helvetica, sans-serif;
-  background-image: -webkit-radial-gradient(0 0, circle, #E95E52, #C92E22);
-  background-image: radial-gradient(circle at 0 0, #E95E52, #A90E02);
-  height: 100vh;
+  margin: 0;
+}
+
+.container {
   display: -webkit-flex;
   display: -moz-flex;
   display: -ms-flex;
@@ -25,9 +26,15 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0;
+  height: 100vh;
+  background-image: -webkit-radial-gradient(0 0, circle, #E95E52, #C92E22);
+  background-image: radial-gradient(circle at 0 0, #E95E52, #A90E02);
 }
 
+.container--ocean {
+  background-image: -webkit-radial-gradient(0 0, circle, rgb(82, 190, 233), rgb(34, 140, 201));
+  background-image: radial-gradient(circle at 0 0, rgb(82, 190, 233), rgb(34, 140, 201));
+}
 
 .welcome {
   color: white;
