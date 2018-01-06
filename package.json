@@ -1,0 +1,21 @@
+{
+  "name": "darjanin.github.io",
+  "version": "0.0.1",
+  "description": "Web setup",
+  "author": "Milan Darjanin <me@milandarjanin.com>",
+  "private": true,
+  "scripts": {
+    "autoprefix":
+      "npx postcss css/style.css --use autoprefixer --no-map -d build/",
+    "minify": "htmlminify -o index.html index-source.html"
+  },
+  "dependencies": {
+    "autoprefixer": "^7.2.4",
+    "clean-css-cli": "^4.1.10",
+    "html-minifier": "^3.5.8",
+    "html-minify": "^0.3.2",
+    "postcss": "^6.0.15",
+    "postcss-cli": "^4.1.1",
+    "uglify": "^0.1.5"
+  }
+}

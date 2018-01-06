@@ -1,55 +1,49 @@
 * {
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box; }
+  box-sizing: border-box;
+}
 
 ::-moz-selection {
-  background: #E95E52;
-  color: #fff;
+  color: #e95e52;
+  background: #fff;
 }
 ::selection {
-  background: #E95E52;
-  color: #fff;
-  text-shadow: 1px 1px rgba(0,0,0,.25);
+  color: #a90e02;
+  background: #fff;
+  text-shadow: 1px 1px rgba(0, 0, 0, 0.2);
 }
 
 body {
-  font-family: 'Open Sans', Helvetica, sans-serif;
-  background-image: -webkit-radial-gradient(0 0, circle, #E95E52, #C92E22);
-  background-image: radial-gradient(circle at 0 0, #E95E52, #A90E02);
+  font-family: "Open Sans", Helvetica, sans-serif;
+  background-image: radial-gradient(circle at 0 0, #e95e52, #a90e02);
   height: 100vh;
-  display: -webkit-flex;
-  display: -moz-flex;
-  display: -ms-flex;
-  display: -o-flex;
   display: flex;
   align-items: center;
   justify-content: center;
   margin: 0;
 }
 
-
 .welcome {
   color: white;
   text-align: center;
-  text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.15); }
-  .welcome a {
-    color: white;
-    text-decoration: none;
-    border-bottom: 1px dotted transparent;
-    -webkit-transition: border .25s;
-    -moz-transition: border .25s;
-    -ms-transition: border .25s;
-    -o-transition: border .25s;
-    transition: border .25s; }
-    .welcome a:hover {
-      border-color: white; }
-  .welcome p {
-    position: relative;
-    z-index: 1; }
-  .welcome h1 {
-    font-weight: 600;
-    margin: 0; }
+  text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.15);
+}
+.welcome a {
+  color: white;
+  text-decoration: none;
+  border-bottom: 1px dotted transparent;
+  transition: border 0.25s;
+}
+.welcome a:hover {
+  border-color: white;
+}
+.welcome p {
+  position: relative;
+  z-index: 1;
+}
+.welcome h1 {
+  font-weight: 600;
+  margin: 0;
+}
 .welcome-logo {
   height: 64px;
   width: 64px;
@@ -57,12 +51,20 @@ body {
   margin: 0 auto 20px auto;
 }
 
+.social {
+  display: flex;
+  justify-content: center;
+}
 .social-item {
-  width: 50px;
-  height: 50px;
-  font-size: 1.5rem;
-  margin-top: auto;
-  margin: 0 .5em;
+  line-height: 1.5rem;
+  display: block;
+}
+.social-item + .social-item {
+  margin-left: 1rem;
+}
+.social-item svg {
+  width: 1.5rem;
+  height: 1.5rem;
 }
 
 @media screen and (max-width: 640px) {
