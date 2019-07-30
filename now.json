@@ -3,14 +3,5 @@
   "name": "web",
   "alias": [
     "www.milandarjanin.com"
-  ],
-  "routes": [
-    {
-      "src": "/(.*)",
-      "status": 301,
-      "headers": {
-        "Location": "https://milandarjanin.com/$1"
-      }
-    }
   ]
 }
