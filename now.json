@@ -1,5 +1,16 @@
 {
   "version": 2,
   "name": "web",
-  "alias": ["milandarjanin.com"]
+  "alias": [
+    "www.milandarjanin.com"
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "status": 301,
+      "headers": {
+        "Location": "https://milandarjanin.com/$1"
+      }
+    }
+  ]
 }
