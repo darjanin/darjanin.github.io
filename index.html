@@ -1,249 +1,189 @@
-<html lang="en" class="gr__milandarjanin_com">
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Milan Darjanin, Front-end web & mobile developer. Fighting mysteries of [undefined]. Doing magic at the Vacuumlabs."
+    />
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description"
-    content="Hi, I'm Milan. Fron-end webdeveloper and graduated @Matfyz in Bratislava. This is my personal page with possibility to contact me.">
+    <meta property="og:title" content="MilanDarjanin.com" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://milandarjanin.com" />
+    <meta
+      property="og:description"
+      content="Milan Darjanin, Front-end web & mobile developer. Fighting mysteries of [undefined]. Doing magic at the Vacuumlabs."
+    />
+    <!-- <meta property="og:image" content="" /> -->
 
-  <meta property="og:title" content="MilanDarjanin.com">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="http://milandarjanin.com">
-  <meta property="og:description"
-    content="Hi, I'm Milan. Fron-end webdeveloper and graduated @Matfyz in Bratislava. This is my personal page with possibility to contact me.">
-  <meta property="og:image" content="http://milandarjanin.com/img/logo.png">
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:url" content="https://milandarjanin.com" />
+    <meta name="twitter:title" content="MilanDarjanin.com" />
+    <meta
+      name="twitter:description"
+      content="Milan Darjanin, Front-end web & mobile developer. Fighting mysteries of [undefined]. Doing magic at the Vacuumlabs."
+    />
+    <!-- <meta
+      name="twitter:image"
+      content="http://milandarjanin.com/img/logo.png"
+    /> -->
 
-  <meta name="twitter:card" content="summary">
-  <meta name="twitter:url" content="http://milandarjanin.com">
-  <meta name="twitter:title" content="MilanDarjanin.com">
-  <meta name="twitter:description"
-    content="Hi, I'm Milan. Fron-end webdeveloper and graduated @Matfyz in Bratislava. This is my personal page with possibility to contact me.">
-  <meta name="twitter:image" content="http://milandarjanin.com/img/logo.png">
+    <title>Milan Darjanin</title>
 
-  <title>Milan Darjanin</title>
-
-  <style>
-    @keyframes fadein {
-      0% {
-        opacity: 0;
+    <style>
+      * {
+        box-sizing: border-box;
       }
 
-      100% {
-        opacity: 100%;
-      }
-    }
-
-    @keyframes fadein-slower {
-      0% {
-        opacity: 0;
-      }
-
-      50% {
-        opacity: 0;
-      }
-
-      100% {
-        opacity: 1;
-      }
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
-    p,
-    .social {
-      /* animation: fadein-slower 1s; */
-    }
-
-    h1 {
-      /* animation: fadein 1s; */
-    }
-
-    ::-moz-selection {
-      color: #e03324;
-      background: #f0f0f0;
-    }
-
-
-    ::selection {
-      color: #a90e02;
-      background: #f0f0f0;
-      text-shadow: 1px 1px rgba(0, 0, 0, 0.2);
-    }
-
-    :root {
-      --brand-color: #e44040;
-      --secondary-color: #8491bf;
-      --hot-pink-color: #E72076;
-      --background-color: #222;
-      --text-color: #fff;
-    }
-
-    @media (prefers-color-scheme: light) {
       :root {
-        --background-color: #fff;
-        --text-color: #333;
+        --brand-color: #e44040;
+        --secondary-color: #8491bf;
+        --hot-pink-color: #e72076;
+        --background-color: #222;
+        --text-color: #f0f0f0;
+        --link-color: #ababab;
       }
-    }
 
-
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-      margin: 2rem;
-      color: var(--text-color);
-      background-color: var(--background-color);
-      font-weight: 300;
-      font-size: 4vh;
-
-
-      display: flex;
-      justify-content: center;
-      align-items: center;
-
-      /* transition: font-size .25s; */
-    }
-
-    a {
-      color: var(--text-color);
-      text-decoration: none;
-      border-bottom: 1px dotted transparent;
-      transition: border 0.25s;
-    }
-
-    a:hover {
-      /* border-color: var(--text-color); */
-    }
-
-    a.vacuumlabs {
-      color: var(--hot-pink-color);
-    }
-
-    a.vacuumlabs:hover {
-      border-color: var(--hot-pink-color);
-    }
-
-    h1 {
-      font-weight: 400;
-      margin: 0;
-      /* font-size: 2rem; */
-    }
-
-    .social {
-      display: flex;
-    }
-
-    .social-item {
-      display: block;
-    }
-
-    .social-item+.social-item {
-      margin-left: 1rem;
-    }
-
-    .social-item span {
-      display: none;
-    }
-
-    path {
-      fill: var(--text-color);
-    }
-
-    a.linkedin:hover {
-      /* border-color: #0073b1; */
-    }
-
-    a.linkedin:hover path {
-      fill: #0073b1;
-    }
-
-    a.twitter:hover {
-      /* border-color: #1DA1F2; */
-    }
-
-    a.twitter:hover path {
-      fill: #1DA1F2;
-    }
-
-    svg {
-      width: 5vh;
-      height: 5vh;
-    }
-
-    @media screen and (max-width: 768px) {
+      @media (prefers-color-scheme: light) {
+        :root {
+          --background-color: #fff;
+          --text-color: #333;
+          --link-color: #000;
+        }
+      }
+      html,
       body {
-        font-size: 5vw;
+        height: 100%;
+      }
+
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+        margin: 2rem;
+        color: var(--text-color);
+        background-color: var(--background-color);
+        font-weight: 300;
+        font-size: 4vh;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
       }
 
       a {
-        /* border-bottom: 1px dotted white; */
+        color: var(--link-color);
+        text-decoration: none;
+        border-bottom: 1px dotted transparent;
+        transition: border 0.25s;
+        font-size: 75%;
       }
 
-      svg {
-        width: 10vw;
-        height: 10vw;
+      a:hover {
+        border-color: var(--link-color);
       }
-    }
 
-    .secondary-text {
-      color: var(--secondary-color);
-    }
-  </style>
-  <link rel="manifest" href="/manifest.json">
-</head>
+      a.vacuumlabs {
+        font-size: 100%;
+        color: var(--hot-pink-color);
+      }
 
-<body data-gr-c-s-loaded="true">
-  <div>
-    <p style="margin: 0;" class="secondary-text">Front-end web &amp; mobile developer</p>
-    <h1>Milan Darjanin</h1>
-    <p>Fighting mysteries of <code class="secondary-text">[undefined]</code>.</p>
-    <p>
-      Doing magic at the <a class="vacuumlabs" href="https://vacuumlabs.com/" target="_blank"
-        rel="noopener">Vacuumlabs</a>.
-    </p>
-    <div class="social">
+      a.vacuumlabs:hover {
+        border-color: var(--hot-pink-color);
+      }
 
-      <a href="http://github.com/darjanin" class="social-item" target="_blank" rel="noopener">
-        <svg width="24" height="24" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg" role="img"
-          aria-label="github username darjanin">
-          <path
-            d="M896 128q209 0 385.5 103t279.5 279.5 103 385.5q0 251-146.5 451.5t-378.5 277.5q-27 5-40-7t-13-30q0-3 .5-76.5t.5-134.5q0-97-52-142 57-6 102.5-18t94-39 81-66.5 53-105 20.5-150.5q0-119-79-206 37-91-8-204-28-9-81 11t-92 44l-38 24q-93-26-192-26t-192 26q-16-11-42.5-27t-83.5-38.5-85-13.5q-45 113-8 204-79 87-79 206 0 85 20.5 150t52.5 105 80.5 67 94 39 102.5 18q-39 36-49 103-21 10-45 15t-57 5-65.5-21.5-55.5-62.5q-19-32-48.5-52t-49.5-24l-20-3q-21 0-29 4.5t-5 11.5 9 14 13 12l7 5q22 10 43.5 38t31.5 51l10 23q13 38 44 61.5t67 30 69.5 7 55.5-3.5l23-4q0 38 .5 88.5t.5 54.5q0 18-13 30t-40 7q-232-77-378.5-277.5t-146.5-451.5q0-209 103-385.5t279.5-279.5 385.5-103zm-477 1103q3-7-7-12-10-3-13 2-3 7 7 12 9 6 13-2zm31 34q7-5-2-16-10-9-16-3-7 5 2 16 10 10 16 3zm30 45q9-7 0-19-8-13-17-6-9 5 0 18t17 7zm42 42q8-8-4-19-12-12-20-3-9 8 4 19 12 12 20 3zm57 25q3-11-13-16-15-4-19 7t13 15q15 6 19-6zm63 5q0-13-17-11-16 0-16 11 0 13 17 11 16 0 16-11zm58-10q-2-11-18-9-16 3-14 15t18 8 14-14z">
-          </path>
-        </svg>
-      </a>
-      <a href="http://sk.linkedin.com/in/milandarjanin" class="social-item linkedin" target="_blank" rel="noopener">
-        <svg width="24" height="24" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg" role="img"
-          aria-label="linkedin name milan darjanin">
-          <path
-            d="M477 625v991h-330v-991h330zm21-306q1 73-50.5 122t-135.5 49h-2q-82 0-132-49t-50-122q0-74 51.5-122.5t134.5-48.5 133 48.5 51 122.5zm1166 729v568h-329v-530q0-105-40.5-164.5t-126.5-59.5q-63 0-105.5 34.5t-63.5 85.5q-11 30-11 81v553h-329q2-399 2-647t-1-296l-1-48h329v144h-2q20-32 41-56t56.5-52 87-43.5 114.5-15.5q171 0 275 113.5t104 332.5z">
-          </path>
-        </svg>
-      </a>
-      <a href="https://twitter.com/milandarjanin" class="social-item twitter" target="_blank" rel="noopener">
-        <svg width="24" height="24" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg" role="img"
-          aria-label="twitter handle milandarjanin">
-          <path
-            d="M1684 408q-67 98-162 167 1 14 1 42 0 130-38 259.5t-115.5 248.5-184.5 210.5-258 146-323 54.5q-271 0-496-145 35 4 78 4 225 0 401-138-105-2-188-64.5t-114-159.5q33 5 61 5 43 0 85-11-112-23-185.5-111.5t-73.5-205.5v-4q68 38 146 41-66-44-105-115t-39-154q0-88 44-163 121 149 294.5 238.5t371.5 99.5q-8-38-8-74 0-134 94.5-228.5t228.5-94.5q140 0 236 102 109-21 205-78-37 115-142 178 93-10 186-50z">
-          </path>
-        </svg>
-      </a>
+      h1 {
+        font-weight: 400;
+        margin: 0;
+      }
+
+      @media screen and (max-width: 768px) {
+        body {
+          font-size: 5vw;
+        }
+
+        a {
+          border-bottom: 1px dotted var(--link-color);
+        }
+
+        a.vacuumlabs {
+          border-color: var(--hot-pink-color);
+        }
+      }
+
+      .secondary-text {
+        color: var(--secondary-color);
+      }
+    </style>
+    <link rel="manifest" href="/manifest.json" />
+  </head>
+
+  <body data-gr-c-s-loaded="true">
+    <div>
+      <p style="margin: 0;" class="secondary-text">
+        Front-end web &amp; mobile developer
+      </p>
+      <h1>Milan Darjanin</h1>
+      <p>
+        Fighting mysteries of <code class="secondary-text">[undefined]</code>.
+      </p>
+      <p>
+        Doing magic at the
+        <a
+          class="vacuumlabs"
+          href="https://vacuumlabs.com/"
+          target="_blank"
+          rel="noopener"
+          >Vacuumlabs</a
+        >.
+      </p>
+      <p>
+        More info at
+        <a href="http://github.com/darjanin" target="_blank" rel="noopener">
+          Github </a
+        >,
+        <a
+          href="http://sk.linkedin.com/in/milandarjanin"
+          target="_blank"
+          rel="noopener"
+        >
+          Linkedin
+        </a>
+        and
+        <a
+          href="https://twitter.com/milandarjanin"
+          target="_blank"
+          rel="noopener"
+        >
+          Twitter </a
+        >.
+      </p>
     </div>
-  </div>
 
-  <script async="" src="//www.google-analytics.com/analytics.js"></script>
-  <script defer="">
-    (function (i, s, o, g, r, a, m) {
-      i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
-        (i[r].q = i[r].q || []).push(arguments)
-      }, i[r].l = 1 * new Date(); a = s.createElement(o),
-        m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
-    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+    <script async="" src="//www.google-analytics.com/analytics.js"></script>
+    <script defer="">
+      (function(i, s, o, g, r, a, m) {
+        i["GoogleAnalyticsObject"] = r;
+        (i[r] =
+          i[r] ||
+          function() {
+            (i[r].q = i[r].q || []).push(arguments);
+          }),
+          (i[r].l = 1 * new Date());
+        (a = s.createElement(o)), (m = s.getElementsByTagName(o)[0]);
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m);
+      })(
+        window,
+        document,
+        "script",
+        "//www.google-analytics.com/analytics.js",
+        "ga"
+      );
 
-    ga('create', 'UA-47824409-1', 'auto');
-    ga('send', 'pageview');
-
-  </script>
-
-</body>
-
+      ga("create", "UA-47824409-1", "auto");
+      ga("send", "pageview");
+    </script>
+  </body>
 </html>
